@@ -11,14 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy Frontend
+      - name: Deploy render
         run: |
-          curl -X POST "$RENDER_DEPLOY_HOOK_FRONT"
+          echo "Déploiement du service..."
+          curl -X POST "$RENDER_DEPLOY_HOOK"
         env:
-          RENDER_DEPLOY_HOOK_FRONT: ${{ secrets.DEPLOY_HOOK }}
-
-      - name: Deploy Backend
-        run: |
-          curl -X POST "$RENDER_DEPLOY_HOOK_API"
-        env:
-          RENDER_DEPLOY_HOOK_API: ${{ secrets.DEPLOY_HOOK }}
+          RENDER_DEPLOY_HOOK: ${{ secrets.DEPLOY_HOOK }}
