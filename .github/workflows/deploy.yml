@@ -1,0 +1,24 @@
+name: Deploy to Render
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  deploy:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy Frontend
+        run: |
+          curl -X POST "$RENDER_DEPLOY_HOOK_FRONT"
+        env:
+          RENDER_DEPLOY_HOOK_FRONT: ${{ secrets.DEPLOY_HOOK }}
+
+      - name: Deploy Backend
+        run: |
+          curl -X POST "$RENDER_DEPLOY_HOOK_API"
+        env:
+          RENDER_DEPLOY_HOOK_API: ${{ secrets.DEPLOY_HOOK }}
